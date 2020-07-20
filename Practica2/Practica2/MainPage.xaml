@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Practica2.MainPage">
+
+    <StackLayout BackgroundColor="GhostWhite" Margin="15" Padding="5">
+        <Label Text="Calculadora de Prestamos" 
+           HorizontalOptions="Center" Margin="25" FontSize="Title" TextColor="RoyalBlue" FontAttributes="Bold"/>
+        <Label Text="Ingrese el Monto del Prestamo"/>
+        <Entry x:Name="txtMonto" Placeholder="Monto del Prestamo" x:DataType="x:Double" />
+        <Label Text="Cantidad de Meses"/>
+        <Picker x:Name="pkMeses"
+            Title="Seleccione la cantidad de meses">
+            <Picker.ItemsSource>
+                <x:Array Type="{x:Type x:Int32}">
+                    <x:Int32>1</x:Int32>
+                    <x:Int32>2</x:Int32>
+                    <x:Int32>3</x:Int32>
+                    <x:Int32>4</x:Int32>
+                    <x:Int32>5</x:Int32>
+                    <x:Int32>6</x:Int32>
+                    <x:Int32>7</x:Int32>
+                    <x:Int32>8</x:Int32>
+                    <x:Int32>9</x:Int32>
+                    <x:Int32>10</x:Int32>
+                    <x:Int32>11</x:Int32>
+                    <x:Int32>12</x:Int32>
+                </x:Array>
+            </Picker.ItemsSource>
+        </Picker>
+        <Label Text="Ingrese la Taza del Prestamo"/>
+        <Entry x:Name="txtTaza" Placeholder="Taza de Interes" x:DataType="x:Double" />
+        <Button  Margin="10" BackgroundColor="LightGreen" Text="Calcular"  CornerRadius="15" x:Name="btncalcular" Clicked="btncalcular_Clicked"/>
+
+        <Label Text="Resultado" FontAttributes="Bold" FontSize="Medium" HorizontalOptions="Center"/>
+        <Label TextColor="Red" TextDecorations="Underline" FontAttributes="Bold" FontSize="Large" HorizontalOptions="Center" x:Name="lblResultado"/>
+    </StackLayout>
+</ContentPage>

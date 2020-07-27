@@ -14,39 +14,42 @@ namespace Practica2
             InitializeComponent();
         }
 
+        private double calcular( double monto, double taza, int mesesPlazo)
+        {
+            double t = taza / 1200;
+            double b = Math.Pow((1 + t), mesesPlazo);
+            double resultado= (Math.Round(t * monto * b / (b - 1), 2));
+            return resultado;
+        }
 
         private void btncalcular_Clicked(object sender, EventArgs e)
         {
-            double monto, taza = 0;
-            int mesesPlazo = 0;
-            taza = Convert.ToDouble(txtTaza.Text);
-            monto = Convert.ToDouble(txtMonto.Text);
-            mesesPlazo = Convert.ToInt32(pkMeses.SelectedItem);
+            double taza = Convert.ToDouble(txtTaza.Text);
+            double monto = Convert.ToDouble(txtMonto.Text);
+            int mesesPlazo = Convert.ToInt32(pkMeses.SelectedItem);
 
-            if (taza != null && taza > 1 || taza < 100)
+            if (monto > 100)
             {
-                if (monto != null && monto > 100)
+                if (mesesPlazo > 1 && mesesPlazo < 13)
                 {
-                    if (mesesPlazo != null && mesesPlazo > 1 || mesesPlazo < 13)
+                    if (taza > 0 && taza < 100)
                     {
-                        double t = taza / 1200;
-                        double b = Math.Pow((1 + t), mesesPlazo);
-                        lblResultado.Text = (Math.Round( t* monto * b / (b - 1),2)).ToString();
+                        lblResultado.Text = calcular(monto: monto, taza: taza, mesesPlazo: mesesPlazo).ToString();
                     }
                     else
-                    {
-                        DisplayAlert("Error", "Favor selecionar la Cantidad Mayor a 1 o Menor a 12 en Meses Antes de Continuar", "OK");
-                    }
+                        {
+                            DisplayAlert("Error", "Favor Introduzca una Taza Mayor a 1% o Menor a 100% Antes de Continuar", "OK");
+                        }
                 }
                 else
-                {
-                    DisplayAlert("Error", "Favor introduzca un Monto Mayor a 100$ Antes de Continuar", "OK");
-                }
-            }
-            else
-            {
-                DisplayAlert("Error", "Favor introduzca una Taza Mayor a 1% o Menor a 100% Antes de Continuar", "OK");
-            }
+                    {
+                        DisplayAlert("Error", "Favor Selecionar la Cantidad Mayor a 1 o Menor a 12 en Meses Antes de Continuar", "OK");
+                    }
+              }
+             else
+                 {
+                   DisplayAlert("Error", "Favor Introduzca un Monto Mayor a 100$ Antes de Continuar", "OK");
+                 }
         }
     }
 }

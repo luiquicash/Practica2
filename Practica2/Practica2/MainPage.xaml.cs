@@ -19,32 +19,33 @@ namespace Practica2
         {
             double monto, taza = 0;
             int mesesPlazo = 0;
-            if (txtTaza.Text != null)
+            taza = Convert.ToDouble(txtTaza.Text);
+            monto = Convert.ToDouble(txtMonto.Text);
+            mesesPlazo = Convert.ToInt32(pkMeses.SelectedItem);
+
+            if (taza != null && taza > 1 || taza < 100)
             {
-                taza = Convert.ToDouble(txtTaza.Text);
-                if (txtMonto.Text != null)
+                if (monto != null && monto > 100)
                 {
-                    monto = Convert.ToDouble(txtMonto.Text);
-                    if (pkMeses.SelectedItem != null)
+                    if (mesesPlazo != null && mesesPlazo > 1 || mesesPlazo < 13)
                     {
-                        mesesPlazo = Convert.ToInt32(pkMeses.SelectedItem);
                         double t = taza / 1200;
                         double b = Math.Pow((1 + t), mesesPlazo);
                         lblResultado.Text = (Math.Round( t* monto * b / (b - 1),2)).ToString();
                     }
                     else
                     {
-                        DisplayAlert("Error", "Favor selecionar la Cantidad de Meses Antes de Continuar", "OK");
-}
+                        DisplayAlert("Error", "Favor selecionar la Cantidad Mayor a 1 o Menor a 12 en Meses Antes de Continuar", "OK");
+                    }
                 }
                 else
                 {
-                    DisplayAlert("Error", "Favor introduzca el Monto Antes de Continuar", "OK");
+                    DisplayAlert("Error", "Favor introduzca un Monto Mayor a 100$ Antes de Continuar", "OK");
                 }
             }
             else
             {
-                DisplayAlert("Error", "Favor introduzca la taza Antes de Continuar", "OK");
+                DisplayAlert("Error", "Favor introduzca una Taza Mayor a 1% o Menor a 100% Antes de Continuar", "OK");
             }
         }
     }

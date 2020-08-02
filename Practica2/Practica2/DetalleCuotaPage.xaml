@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Practica2.DetalleCuotaPage"    
+             Padding="10,50,10,10">
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="GhostWhite">
+
+            <Label Text="Detalles de Cuota" TextColor="Black" FontAttributes="Bold" FontSize="Medium" HorizontalOptions="Center" TextDecorations="Underline"/>
+            
+            <Label Text="Cuota Numero:" Margin="1,0,0,0" TextColor="Black" FontAttributes="Bold"/>
+            <Label x:Name="NumeroCuota" Grid.Column="0"/>
+
+            <Label Text="Interes Por Cuota:" Margin="1,0,0,0" TextColor="Black" FontAttributes="Bold"/>
+            <Label x:Name="InteresCuota"  Grid.Column="1"/>
+
+            <Label Text="Amortizacion Por Cuota:" Margin="1,0,0,0" TextColor="Black" FontAttributes="Bold"/>
+            <Label x:Name="AmortizacionCuota"  Grid.Column="2"/>
+
+            <Label Text="Total a Pagar:" Margin="1,0,0,0" TextColor="Black" FontAttributes="Bold"/>
+            <Label  x:Name="TotalCuota" Grid.Column="3"/>
+            
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

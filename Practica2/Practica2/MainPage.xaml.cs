@@ -1,6 +1,8 @@
 ﻿
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Text.RegularExpressions;
 using Xamarin.Forms;
 
 namespace Practica2
@@ -18,8 +20,18 @@ namespace Practica2
         {
             double t = taza / 1200;
             double b = Math.Pow((1 + t), mesesPlazo);
-            double resultado= (Math.Round(t * monto * b / (b - 1), 2));
+            double resultado = t * monto * b / (b - 1);
             return resultado;
+        }
+
+        public double montoTotaldelPrestamo(int mesesPlazo, double cuotas)
+        {
+            double total = 0;
+            for (int i = 0; i < mesesPlazo; i++)
+            {
+                total += cuotas;
+            }
+            return total;
         }
 
         private void btncalcular_Clicked(object sender, EventArgs e)
@@ -27,6 +39,7 @@ namespace Practica2
             double taza = Convert.ToDouble(txtTaza.Text);
             double monto = Convert.ToDouble(txtMonto.Text);
             int mesesPlazo = Convert.ToInt32(pkMeses.SelectedItem);
+            double cuotacalculada = 0;
 
             if (monto > 100)
             {
@@ -34,7 +47,18 @@ namespace Practica2
                 {
                     if (taza > 0 && taza < 100)
                     {
-                        lblResultado.Text = calcular(monto: monto, taza: taza, mesesPlazo: mesesPlazo).ToString();
+                        cuotacalculada = calcular(monto, taza, mesesPlazo);
+
+                        // Llenar la lista de cuotas
+                        List<Cuota> cuotas = new List<Cuota>();
+                        for (int i = 0; i < mesesPlazo; i++)
+                        {
+                            cuotas.Add(new Cuota(i + 1, monto, mesesPlazo, taza));
+                        }
+
+                        // Asignar cuotas a la tabla (ListView)
+                        TablaAmortizacion.ItemsSource = cuotas;
+                        lbltotal.Text = montoTotaldelPrestamo(mesesPlazo, cuotacalculada).ToString("C2");
                     }
                     else
                         {
@@ -50,6 +74,23 @@ namespace Practica2
                  {
                    DisplayAlert("Error", "Favor Introduzca un Monto Mayor a 100$ Antes de Continuar", "OK");
                  }
+        }
+
+        async void TablaAmortizacion_ItemSelected(System.Object sender, Xamarin.Forms.SelectedItemChangedEventArgs e)
+        {
+            var cuotaSeleccionada = e.SelectedItem as Cuota;
+            if (cuotaSeleccionada == null)
+            {
+                return;
+            }
+
+            await DisplayAlert("Detalles de Cuota \n", " Numero de Cuota : " + cuotaSeleccionada.Nro +
+                "\n Interes por Cuota : " + cuotaSeleccionada.InteresFormateado +
+                "\n Amortizacion Por Cuota : " + cuotaSeleccionada.AmortizacionFormateada +
+                "\n Total a Pagar : " + cuotaSeleccionada.totalApagar, "OK");
+
+            
+            await Navigation.PushAsync(new DetalleCuotaPage(cuotaSeleccionada));
         }
     }
 }

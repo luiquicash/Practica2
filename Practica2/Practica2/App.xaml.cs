@@ -10,9 +10,9 @@ namespace Practica2
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            var navegacion = new NavigationPage(new MainPage());
+            MainPage = navegacion;
         }
-
         protected override void OnStart()
         {
         }

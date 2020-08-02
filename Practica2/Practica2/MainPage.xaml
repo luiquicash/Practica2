@@ -6,36 +6,76 @@
              mc:Ignorable="d"
              x:Class="Practica2.MainPage">
 
-    <StackLayout BackgroundColor="GhostWhite" Margin="15" Padding="5">
-        <Label Text="Calculadora de Prestamos" 
-           HorizontalOptions="Center" Margin="25" FontSize="Title" TextColor="RoyalBlue" FontAttributes="Bold"/>
-        <Label Text="Ingrese el Monto del Prestamo"/>
-        <Entry x:Name="txtMonto" Placeholder="Monto del Prestamo" x:DataType="x:Double" />
-        <Label Text="Cantidad de Meses"/>
-        <Picker x:Name="pkMeses"
-            Title="Seleccione la cantidad de meses">
+    <StackLayout BackgroundColor="GhostWhite" Padding="15">
+        <Label Text="Calculadora de Prestamos" HorizontalOptions="Center" Margin="0,0,0,10" FontSize="Title" TextColor="RoyalBlue" FontAttributes="Bold"/>
+        <Label Text="Monto del Prestamo" FontSize="14"/>
+        <Entry x:Name="txtMonto" Placeholder="Monto del Prestamo" FontSize="10"/>
+        <Label Text="Cantidad de Meses" FontSize="14"/>
+        <Picker x:Name="pkMeses" Title="Cantidad de Meses" FontSize="10">
             <Picker.ItemsSource>
                 <x:Array Type="{x:Type x:Int32}">
-                    <x:Int32>1</x:Int32>
-                    <x:Int32>2</x:Int32>
-                    <x:Int32>3</x:Int32>
-                    <x:Int32>4</x:Int32>
-                    <x:Int32>5</x:Int32>
-                    <x:Int32>6</x:Int32>
-                    <x:Int32>7</x:Int32>
-                    <x:Int32>8</x:Int32>
-                    <x:Int32>9</x:Int32>
-                    <x:Int32>10</x:Int32>
-                    <x:Int32>11</x:Int32>
-                    <x:Int32>12</x:Int32>
+                    <x:Int32>1</x:Int32><x:Int32>2</x:Int32>
+                    <x:Int32>3</x:Int32><x:Int32>4</x:Int32>
+                    <x:Int32>5</x:Int32><x:Int32>6</x:Int32>
+                    <x:Int32>7</x:Int32><x:Int32>8</x:Int32>
+                    <x:Int32>9</x:Int32><x:Int32>10</x:Int32>
+                    <x:Int32>11</x:Int32><x:Int32>12</x:Int32>
                 </x:Array>
             </Picker.ItemsSource>
-        </Picker>
-        <Label Text="Ingrese la Taza del Prestamo"/>
-        <Entry x:Name="txtTaza" Placeholder="Taza de Interes" x:DataType="x:Double" />
-        <Button  Margin="10" BackgroundColor="LightGreen" Text="Calcular"  CornerRadius="15" x:Name="btncalcular" Clicked="btncalcular_Clicked"/>
+        </Picker>x
+        <Label Text="Taza de Interes" FontSize="14"/>
+        <Entry x:Name="txtTaza" Placeholder="Taza de Interes" FontSize="10" />
+        
+        <Button BackgroundColor="LightGreen" HeightRequest="35" Text="Calcular" FontSize="12" CornerRadius="15" x:Name="btncalcular" Clicked="btncalcular_Clicked"/>
 
-        <Label Text="Resultado" FontAttributes="Bold" FontSize="Medium" HorizontalOptions="Center"/>
-        <Label TextColor="Red" TextDecorations="Underline" FontAttributes="Bold" FontSize="Large" HorizontalOptions="Center" x:Name="lblResultado"/>
+        <Label Text="Tabla de Amortizacion" HorizontalOptions="Center" Margin="10" FontSize="Large" TextColor="Black" FontAttributes="Bold"/>
+        
+        <ListView x:Name="TablaAmortizacion" HasUnevenRows="True" ItemSelected="TablaAmortizacion_ItemSelected">
+            <ListView.Header>
+                <Grid HorizontalOptions="FillAndExpand">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition
+                            Width="50" />
+                        <ColumnDefinition
+                            Width="*" />
+                        <ColumnDefinition
+                            Width="*" />
+                        <ColumnDefinition
+                            Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label Text="No." Grid.Column="0"></Label>
+                    <Label Text="Interes" Grid.Column="1"></Label>
+                    <Label Text="Capital" Grid.Column="2"></Label>
+                    <Label Text="Total A Pagar" Grid.Column="3"></Label>
+                </Grid>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid HorizontalOptions="FillAndExpand">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Label Text="{Binding Nro}" Grid.Column="0"></Label>
+                            <Label Text="{Binding InteresFormateado}" Grid.Column="1"></Label>
+                            <Label Text="{Binding AmortizacionFormateada}" Grid.Column="2"></Label>
+                            <Label Text="{Binding totalApagar}" Grid.Column="3"></Label>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.Footer>
+                <Grid HorizontalOptions="FillAndExpand" Margin="10">
+                    <Label Text="Monto Total Del Prestamo" FontAttributes="Bold" Grid.Column="0" Grid.ColumnSpan="3"/>
+                    <Label TextColor="Black" x:Name="lbltotal" Grid.Column="3"/>
+                </Grid>
+            </ListView.Footer>
+        </ListView>
+        <Label Text="@copyright LunasSystem" FontSize="9" HorizontalTextAlignment="Center"/>
     </StackLayout>
 </ContentPage>
